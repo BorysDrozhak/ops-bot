@@ -1,0 +1,10 @@
+[security]
+token = '273663604:AAHPOY6TMGe3-nH0AmOPesDVAJzFEQm-NAw'
+insecFunc = ["sudo", "welcom_func"]
+secretQuestion = 'pass'
+
+[users]
+whitelisted_users_id = ['354766008', '84206430']
+
+[logging]
+debuglevel = 'DEBUG'
