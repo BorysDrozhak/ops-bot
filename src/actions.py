@@ -66,7 +66,7 @@ def do_sh(action,message,linePerMessage=50):
         _buffer = ''
         for line in p.stdout:
             available_actions.append(line)
-            if _buffer.count('\n') == charPerMessage:
+            if _buffer.count('\n') == linePerMessage:
                 tb.send_message(message.chat.id, _buffer, parse_mode="Markdown")
                 _buffer = ''
             else:
