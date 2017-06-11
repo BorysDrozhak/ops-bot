@@ -51,7 +51,7 @@ def do(action, message, path='', lineInMessage=50, flashTime=5):
         tb.send_message(message.chat.id, e)
         raise e
 
-def do_sh(action,message,charPerMessage=50):
+def do_sh(action,message,linePerMessage=50):
     print(int(time.time()), '[INFO] do: action=', action)
     available_actions = []
     path = os.getcwd()
@@ -66,14 +66,12 @@ def do_sh(action,message,charPerMessage=50):
         _buffer = ''
         for line in p.stdout:
             available_actions.append(line)
-            if len(_buffer) == charPerMessage:
+            if _buffer.count('\n') == linePerMessage:
                 tb.send_message(message.chat.id, _buffer, parse_mode="Markdown")
                 _buffer = ''
             else:
                 _buffer += line
         tb.send_message(message.chat.id, _buffer, parse_mode="Markdown")
-
-
         tb.send_message(message.chat.id,
                             "Proccess execution stopped",
                             parse_mode="Markdown")

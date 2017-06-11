@@ -23,17 +23,10 @@ def g_inl_mark(L, prefix=''):
 
 
 # buttons
-p = '/projects'  # shows projs
-projs = ['/epicEel', '/telebot', '/Kafka']
 ls = '/ls'
-test = '/test'
-actions = ['/make', ls, '/git']
-env = ['/dev', '/stage', '/prod']
+actions = [ls]
+
 
 # keyboards
-Environments = g_markup(env + [p])
-Actions = g_markup(actions + [p])
-Main_sec = g_markup([p, ls, test])
-Test = g_markup(actions + [p])
-Main_insec = g_markup(['/start', '/sudo', test])
-Projects = g_markup(projs + [test])
+Main_sec = g_markup([ls])
+Main_insec = g_markup(['/start', '/sudo'])
