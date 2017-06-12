@@ -2,16 +2,18 @@ import os
 from init import tb, tb_mem  # init telebot and config obj
 from wrappers import secure, secure_call  # place for wrappers
 from markups import g_markup, g_inl_mark
-from markups import Main_sec, Main_insec
 from actions import *  # place for actions
 
+# keyboards
+Main_sec = g_markup(['/ls', '/make'])
+Main_insec = g_markup(['/help', '/sudo'])
 
 def markdown(text):
     return '```\n' + str(text) + '\n```'
 
 ## default function. can show all handlers when user is auth_ed
-@tb.message_handler(commands=['help', 'start', 'hi', 'hello'])
-@tb.message_handler(func=lambda m: m.text in ['Hi', 'H', 'h', 'help'])
+@tb.message_handler(commands=['help'])
+@tb.message_handler(func=lambda m: m.text in ['help', 'hi'])
 @secure
 def send_welcome(message):
     text = "Howdy, how are you doing?"
@@ -46,25 +48,6 @@ def sudo(message):
         print(str(message.from_user.id) + " is trying sudo")
 
 
-@tb.message_handler(commands=['make'])
-@secure
-def make_handle(message):
-    command = """make -qp $makef $makef_dir 2>/dev/null |
-awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ \
-{split($1,A,/ /);for(i in A)print A[i]}'
-"""
-    # Execute command and get list of lines as output
-    L = (do_sh(command,message))
-    # Generate inline with needed prefix
-    m = g_inl_mark(L, message.text.split()[0])
-    tb.send_message(message.chat.id, '.' * 50, reply_markup=m)
-
-
-@tb.callback_query_handler(func=lambda call: '/make' in call.data)
-@secure_call
-def call_make(call):
-    print(do_sh(call.data[1:]))
-
 
 @tb.message_handler(commands=['ls'])
 @secure
@@ -75,6 +58,24 @@ def ls(message):
                     '<strong>your dir:</strong>',
                     parse_mode="HTML", reply_markup=mark)
 
+# @tb.message_handler(commands=['make'])
+# @secure
+# def make_handle(message):
+#     command = """make -qp $makef $makef_dir 2>/dev/null |
+# awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ \
+# {split($1,A,/ /);for(i in A)print A[i]}'
+# """
+#     # Execute command and get list of lines as output
+#     L = (do_sh(command,message))
+#     # Generate inline with needed prefix
+#     m = g_inl_mark(L, message.text.split()[0])
+#     tb.send_message(message.chat.id, '.' * 50, reply_markup=m)
+
+
+# @tb.callback_query_handler(func=lambda call: '/make' in call.data)
+# @secure_call
+# def call_make(call):
+#     print(do_sh(call.data[1:]))
 
 if __name__ == '__main__':
     tb.polling(none_stop=True, timeout=50)

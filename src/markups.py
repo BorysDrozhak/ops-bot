@@ -20,12 +20,3 @@ def g_inl_mark(L, prefix=''):
             prefix + el),
             switch_inline_query=str(prefix + el)))
     return markup
-
-
-# buttons
-p = '/projects'  # shows projs
-env = ['/dev', '/stage', '/prod']
-
-# keyboards
-Main_sec = g_markup(['/ls', '/make'])
-Main_insec = g_markup(['/hi', '/sudo'])
