@@ -20,3 +20,20 @@ def g_inl_mark(L, prefix=''):
             prefix + el),
             switch_inline_query=str(prefix + el)))
     return markup
+
+
+# buttons
+p = '/projects'  # shows projs
+projs = ['/epicEel', '/telebot', '/Kafka']
+ls = '/ls'
+test = '/test'
+actions = ['/make', ls, '/git']
+env = ['/dev', '/stage', '/prod']
+
+# keyboards
+Environments = g_markup(env + [p])
+Actions = g_markup(actions + [p])
+Main_sec = g_markup([p, ls, test])
+Test = g_markup(actions + [p])
+Main_insec = g_markup(['/start', '/sudo', test])
+Projects = g_markup(projs + [test])

@@ -1,4 +1,4 @@
-# Your own Bot for OPS guys
+# You own Bot for OPS guys
 
 ### The ideas
 * I'd like to work with my laptop via my phone
